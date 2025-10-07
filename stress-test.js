@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * Advanced Layer 7 Stress Test Tool
  * Features: Async Pool, Circuit Breaker, Auto Reconnect, Protocol Failover
@@ -11,9 +9,6 @@ const http2 = require('http2');
 const { URL } = require('url');
 const readline = require('readline');
 
-// ============================================================
-// ANSI Colors (Lightweight)
-// ============================================================
 const C = {
     reset: "\x1b[0m", bold: "\x1b[1m", dim: "\x1b[2m",
     red: "\x1b[31m", green: "\x1b[32m", yellow: "\x1b[33m",
@@ -22,9 +17,7 @@ const C = {
     bgRed: "\x1b[41m", bgGreen: "\x1b[42m"
 };
 
-// ============================================================
-// Configuration
-// ============================================================
+
 const USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/115.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/115.0.0.0 Safari/537.36",
@@ -48,9 +41,6 @@ const TLS_PROFILES = [
 
 const HTTP_METHODS = ["GET", "HEAD", "POST", "PUT", "OPTIONS"];
 
-// ============================================================
-// Helper Functions
-// ============================================================
 const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const getTls = () => rand(TLS_PROFILES);
 const formatTime = (sec) => {
@@ -60,9 +50,7 @@ const formatTime = (sec) => {
     return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
 };
 
-// ============================================================
-// Circuit Breaker with Auto Reconnect
-// ============================================================
+
 class CircuitBreaker {
     constructor(threshold = 10, timeout = 5000, halfOpenRequests = 3) {
         this.failCount = 0;
@@ -122,9 +110,6 @@ class CircuitBreaker {
     }
 }
 
-// ============================================================
-// Async Pool (CPU-friendly concurrency control)
-// ============================================================
 async function asyncPool(poolLimit, array, iteratorFn) {
     const ret = [];
     const executing = [];
@@ -145,9 +130,6 @@ async function asyncPool(poolLimit, array, iteratorFn) {
     return Promise.all(ret);
 }
 
-// ============================================================
-// Protocol Detection
-// ============================================================
 async function detectProtocols(url) {
     const protocols = new Set();
     
@@ -178,9 +160,6 @@ async function detectProtocols(url) {
     return Array.from(protocols);
 }
 
-// ============================================================
-// Request Handler with Protocol Failover
-// ============================================================
 async function sendRequest(url, path, breaker, stats, protocols) {
     for (const proto of protocols) {
         try {
@@ -242,9 +221,7 @@ async function sendRequest(url, path, breaker, stats, protocols) {
     }
 }
 
-// ============================================================
-// HTTP/2 Attack Handlers
-// ============================================================
+
 async function rapidResetAttack(url, stats, duration) {
     const startTime = Date.now();
     
@@ -299,9 +276,6 @@ async function rapidResetAttack(url, stats, duration) {
     }
 }
 
-// ============================================================
-// Real-time Stats Display (Non-flicker, single line)
-// ============================================================
 function displayStats(stats, startTime, remaining, breaker, protocols) {
     const elapsed = (Date.now() - startTime) / 1000;
     const total = stats.success + stats.failed;
@@ -328,9 +302,6 @@ function displayStats(stats, startTime, remaining, breaker, protocols) {
     process.stdout.write(line);
 }
 
-// ============================================================
-// Final Report
-// ============================================================
 function printReport(stats, elapsed, url, protocols, attackMode) {
     console.log("\n\n" + C.cyan + "=".repeat(60) + C.reset);
     console.log(C.bold + C.green + "       ⚡️ TEST COMPLETED ⚡️       " + C.reset);
@@ -387,9 +358,6 @@ function printReport(stats, elapsed, url, protocols, attackMode) {
     console.log("\n" + C.cyan + "=".repeat(60) + C.reset + "\n");
 }
 
-// ============================================================
-// Command Line Arguments Parser
-// ============================================================
 function parseArgs() {
     const args = process.argv.slice(2);
     const config = {
@@ -473,9 +441,6 @@ ${C.bold}Examples:${C.reset}
 `);
 }
 
-// ============================================================
-// Main Execution
-// ============================================================
 async function main() {
     const config = parseArgs();
     
@@ -608,9 +573,6 @@ async function main() {
     printReport(stats, elapsed, config.url, protocols, config.attack);
 }
 
-// ============================================================
-// Execute
-// ============================================================
 main().catch(err => {
     console.error(`${C.red}${C.bold}Fatal Error:${C.reset}`, err.message);
     process.exit(1);
