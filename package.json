@@ -1,0 +1,17 @@
+{
+  "name": "authorized-layer7-stress-test-tool",
+  "version": "2.0.0",
+  "description": "A Node.js CLI for controlled HTTP service load and protocol experiments.",
+  "main": "stress-test.js",
+  "scripts": {
+    "help": "node stress-test.js --help",
+    "start": "node stress-test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "undici": "^6.21.0"
+  },
+  "license": "MIT"
+}

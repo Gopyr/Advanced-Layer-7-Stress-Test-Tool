@@ -576,17 +576,4 @@ async function main() {
 main().catch(err => {
     console.error(`${C.red}${C.bold}Fatal Error:${C.reset}`, err.message);
     process.exit(1);
-});log(`${C.bgRed}${C.white} Attack Mode: ${attackMode.toUpperCase()} ${C.reset}`);
-    }
-    
-    console.log("\n" + C.bold + "Performance Metrics:" + C.reset);
-    console.log(`  ${C.green}Successful Requests:${C.reset} ${stats.success}`);
-    console.log(`  ${C.red}Failed Requests:${C.reset} ${stats.failed}`);
-    console.log(`  ${C.yellow}Requests/Second:${C.reset} ${(stats.success / elapsed).toFixed(2)}`);
-    console.log(`  ${C.blue}Avg Latency:${C.reset} ${(stats.totalLatency / stats.success || 0).toFixed(2)}ms`);
-    console.log(`  ${C.blue}Min Latency:${C.reset} ${stats.minLatency.toFixed(2)}ms`);
-    console.log(`  ${C.blue}Max Latency:${C.reset} ${stats.maxLatency.toFixed(2)}ms`);
-    console.log(`  ${C.magenta}Success Rate:${C.reset} ${((stats.success / (stats.success + stats.failed)) * 100 || 0).toFixed(2)}%`);
-    
-    if (attackMode !== 'none') {
-        console.
+});
