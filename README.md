@@ -1,4 +1,4 @@
-# Advanced Layer 7 Stress Test Tool
+# Layer 7 HTTP Stress Test Tool
 
 A small Node.js command-line utility for **authorized, controlled HTTP service testing**. It records request outcomes, latency, status codes, protocol usage, and circuit-breaker state while exercising a single target from one process.
 
@@ -41,13 +41,13 @@ The example target is intentionally non-routable documentation text. Replace it 
 
 | Option | Description | Default |
 | --- | --- | --- |
-| `-u, --url <url>` | URL to test; required | — |
+| `-u, --url <url>` | URL to test; required |: |
 | `-t, --time <minutes>` | Test duration | `1` |
 | `-c, --conc <number>` | Concurrent workers | `50` |
 | `-p, --protocol <list>` | Force `1.1`, `2`, or `3` paths | auto-detect |
 | `--adaptive-delay` | Back off when blocking responses are observed | off |
 | `-a, --attack <mode>` | Legacy protocol-experiment switch; lab-only | `none` |
-| `-h, --help` | Print command help | — |
+| `-h, --help` | Print command help |; |
 
 ## What the output means
 
