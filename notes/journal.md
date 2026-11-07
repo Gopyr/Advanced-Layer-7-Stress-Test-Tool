@@ -1,1 +1,2 @@
 - 2026-10-14 refactor: flatten nested conditionals
+- 2026-11-07 fix: type narrowing in handler
