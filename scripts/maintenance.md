@@ -1,0 +1,1 @@
+- 2026-11-21 feat: add retry on transient failure
